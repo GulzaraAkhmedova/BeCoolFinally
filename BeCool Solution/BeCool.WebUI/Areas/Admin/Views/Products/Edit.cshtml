@@ -1,0 +1,151 @@
+﻿@model ProductEditCommand
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<!-- Page-header start -->
+<div class="page-header">
+    <div class="row align-items-end">
+        <div class="col-lg-8">
+            <div class="page-header-title">
+                <div class="d-inline">
+                    <h4>Bootstrap Border Sizes</h4>
+                    <span>
+                        lorem ipsum dolor sit amet, consectetur adipisicing
+                        elit
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="page-header-breadcrumb">
+                <ul class="breadcrumb-title">
+                    <li class="breadcrumb-item" style="float: left;">
+                        <a asp-controller="Dashboard" asp-action="index">
+                            <i class="feather icon-home"></i>
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item" style="float: left;">
+                        <a asp-action="index">Brands</a>
+                    </li>
+                    <li class="breadcrumb-item" style="float: left;">
+                        <span>Create</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Page-header end -->
+<!-- Page-body start -->
+<div class="page-body">
+    <!-- Horizontal-border table start -->
+    <div class="card">
+        <div class="card-header">
+            <h5>Basic Form Inputs</h5>
+            <span>
+                Add class of <code>.form-control</code> with
+                <code>&lt;input&gt;</code> tag
+            </span>
+
+
+            <div class="card-header-right">
+                <i class="icofont icofont-spinner-alt-5"></i>
+            </div>
+
+        </div>
+        <div class="card-block">
+            <h4 class="sub-title">Basic Inputs</h4>
+
+            <form method="post" autocomplete="off" enctype="multipart/form-data">
+                <div class="form-group row">
+                    <div class="col-12 col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Name" class="form-label"></label>
+                            <input asp-for="Name" class="form-control" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="StockKeepingUnit" class="form-label"></label>
+                            <input asp-for="StockKeepingUnit" class="form-control" />
+                            <span asp-validation-for="StockKeepingUnit" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Price" class="form-label"></label>
+                            <input asp-for="Price" class="form-control" />
+                            <span asp-validation-for="Price" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="BrandId" class="form-label"></label>
+                            <select class="clndr-controls select2" asp-for="BrandId" asp-items="@ViewBag.BrandId"></select>
+                            <span asp-validation-for="BrandId" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="CategoryId" class="form-label"></label>
+                            <select class="clndr-controls select2" asp-for="CategoryId" asp-items="@ViewBag.CategoryId"></select>
+                            <span asp-validation-for="CategoryId" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <div style="width: 100%" class="imager-container" id="viewer1" name="Images">
+                            @foreach (var item in Model.Images)
+                           {
+                               <label thumb-url='/uploads/images/@item.TempPath' image-id="@item.Id" @(item.IsMain?"checked":"")></label>
+                           }
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ShortDescription" class="form-label"></label>
+                    <textarea asp-for="ShortDescription" class="" id="sdesc"></textarea>
+                    <span asp-validation-for="ShortDescription" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Description" class="form-label"></label>
+                    <textarea asp-for="Description" class="" id="desc"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <div class="form-group row">
+                    <div class="col-12 d-flex justify-content-end">
+                        <input type="hidden" asp-for="Id"/>
+                        <button class="btn btn-primary mr-2">Save</button>
+                        <a asp-action="index" class="btn btn-info">Cancel</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- Horizontal-border table end -->
+</div>
+<!-- Page-body end -->
+@section addjs{
+<script class="removeable" src="~/libs/ckeditor5/ckeditor.min.js"></script>
+<script class="removeable" src="~/libs/select2/dist/js/select2.full.min.js"></script>
+<script class="removeable" src="~/libs/multiple-imager-js/js/imager.js"></script>
+<script>
+    ClassicEditor
+    .create( document.querySelector( '#sdesc' ) )
+    .catch( error => {
+        console.error( error );
+    } );
+    ClassicEditor
+    .create( document.querySelector( '#desc' ) )
+    .catch( error => {
+        console.error( error );
+    } );
+    $('.select2').select2();
+
+    $('#viewer1').imgadd({
+        tnWidth: '60px',
+        tnHeight: '60px',
+        fontSize: '55px',
+        plusInnerHtml: '',
+        plusBtnClass: undefined
+    });
+</script>
+}
+@section addcss{
+<link rel="stylesheet" href="~/libs/multiple-imager-js/css/imager.css" />
+<link rel="stylesheet" href="~/libs/select2/dist/css/select2.min.css" />
+}

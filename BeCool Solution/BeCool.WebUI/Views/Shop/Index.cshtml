@@ -1,0 +1,267 @@
+﻿@model PagedViewModel<Product>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<!-- Begin Li's Content Wraper Area -->
+<div class="content-wraper pt-60 pb-60 pt-sm-30">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9 order-1 order-lg-2">
+                <!-- Begin Li's Banner Area -->
+                <div class="single-banner shop-page-banner">
+                    <a href="#">
+                        <img src="~/assets/images/bg-banner/2.jpg" alt="Li's Static Banner">
+                    </a>
+                </div>
+                <!-- Li's Banner Area End Here -->
+                <!-- shop-top-bar start -->
+                <div class="shop-top-bar mt-30">
+                    <div class="shop-bar-inner">
+                        <div class="product-view-mode">
+                            <!-- shop-item-filter-list start -->
+                            <ul class="nav shop-item-filter-list" role="tablist">
+                                <li class="active" role="presentation"><a aria-selected="true" class="active show" data-toggle="tab" role="tab" aria-controls="grid-view" href="#grid-view"><i class="fa fa-th"></i></a></li>
+                                <li role="presentation"><a data-toggle="tab" role="tab" aria-controls="list-view" href="#list-view"><i class="fa fa-th-list"></i></a></li>
+                            </ul>
+                            <!-- shop-item-filter-list end -->
+                        </div>
+                        <div class="toolbar-amount">
+                            <span>Showing 1 to 9 of 15</span>
+                        </div>
+                    </div>
+                    <!-- product-select-box start -->
+                    <div class="product-select-box">
+                        <div class="product-short">
+                            <p>Sort By:</p>
+                            <select class="nice-select">
+                                <option value="trending">Relevance</option>
+                                <option value="sales">Name (A - Z)</option>
+                                <option value="sales">Name (Z - A)</option>
+                                <option value="rating">Price (Low &gt; High)</option>
+                                <option value="date">Rating (Lowest)</option>
+                                <option value="price-asc">Model (A - Z)</option>
+                                <option value="price-asc">Model (Z - A)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- product-select-box end -->
+                </div>
+                <!-- shop-top-bar end -->
+                <!-- shop-products-wrapper start -->
+                <div id="dynamic-content">
+                    <partial name="_Products" model="@Model" />
+                </div>
+                <!-- shop-products-wrapper end -->
+            </div>
+            <div class="col-lg-3 order-2 order-lg-1">
+                @await Component.InvokeAsync("SearchPanel")
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Content Wraper Area End Here -->
+@*@section addcss{
+    <style>
+    .pagination-box {
+    text-align: right;
+    }
+
+    .pagination-box > li {
+    display: inline-block;
+    }
+    </style>
+    }*@
+
+@section addjs{
+<script>
+    const priceRangeData = $("#price-range").data();
+    const searchModel = {
+            liters: [],
+            viscosities: [],
+            types: [],
+            apis: [],
+            brands: [],
+            min: priceRangeData.priceMin,
+            max: priceRangeData.priceMax
+        };
+    $(document).ready(function() {
+        $("#price-range")
+         .attr('range', `${searchModel.min}₼ - ${searchModel.max}₼`)
+         .slider({
+             range: true,
+             min: searchModel.min,
+             max: searchModel.max,
+             values: [searchModel.min, searchModel.max],
+             slide: function(e, ui) {
+                 $(e.target).attr('range', `${ui.values[0]}₼ - ${ui.values[1]}₼`)
+                 searchModel.min = ui.values[0];
+                 searchModel.max = ui.values[1];
+
+                 filterProducts();
+
+                }
+         });
+
+         $('[data-entity-type]').click(function(e) {
+             e.preventDefault();
+
+             let model = $(e.currentTarget).data();
+
+             if($(e.currentTarget).hasClass('active') == true) {
+                 $(e.currentTarget).removeClass('active');
+                 searchModel[`${model.entityType}`] = searchModel[`${model.entityType}`].filter(item => item != model.id);
+
+
+             }
+             else {
+                 $(e.currentTarget).addClass('active');
+
+                 if(searchModel[`${model.entityType}`].filter(item => item == model.id).length == 0) {
+                     searchModel[`${model.entityType}`].push(model.id);
+                 }
+             }
+
+             filterProducts();
+
+
+
+         });
+    });
+        function goPage(pageIndex, pageSize) {
+
+        $.ajax({
+            url: `@Url.Action("Index")`,
+            type: 'POST',
+            data: {
+                pageIndex: pageIndex,
+                pageSize: pageSize
+            },
+            contentType:'application/x-www-form-urlencoded',
+            success: function(response) {
+                $('#dynamic-content').html(response);
+                location.hash = "#dynamic-content";
+                location.hash = "";
+            },
+            error: function(response) {
+                console.log(response);
+            }
+        });
+    }
+        function addToFavorites(productId)
+        {
+            const favorites = ($.cookie('favorites') || '').split(',').filter(item => item.length > 0);
+
+            if (favorites.filter(item => item == productId).length == 0)
+            {
+                favorites.push(productId);
+
+                $.cookie('favorites',favorites.toString(),{ path: '/' })
+            }
+            console.log($.cookie('favorites'));
+
+        }
+        function filterProducts() {
+            if($.pid != undefined) {
+                 clearTimeout($.pid);
+                }
+
+                $.pid = setTimeout(function() {
+                    console.log(searchModel);
+
+                    $.ajax({
+                        type: 'POST',
+                        data: searchModel,
+                        contentType: 'application/x-www-form-urlencoded',
+                        success: function(response) {
+                            $('#dynamic-content').html(response);
+                            //console.log(response);
+                        },
+                        error: function(response) {
+                            console.log(response);
+                        }
+
+                    });
+                },1500);
+                }
+
+
+</script>
+<script src="https://kit.fontawesome.com/05d5d45b61.js" crossorigin="anonymous"></script>
+}
+@section addcss{
+<style>
+
+    [data-entity-type] {
+        position: relative;
+        padding-left: 30px;
+        display: block;
+        cursor: pointer;
+    }
+
+        [data-entity-type]:not(.filled)::before {
+            content: "";
+            font-size: 0.7em;
+            font-weight: 900;
+            font-family: "Font Awesome 5 Free";
+            position: absolute;
+            border: 1px solid #cccccc85;
+            width: 18px;
+            height: 18px;
+            border-radius: 2px;
+            top: 50%;
+            left: 0px;
+            transform: translateY(-50%);
+            text-align: center;
+            text-indent: 1px;
+            line-height: 1.7em;
+        }
+
+        [data-entity-type].active:not(.filled)::before {
+            content: "\f14a";
+            color: #ffffff;
+            background-color: #cccccc85;
+            border-color: #cccccc85;
+        }
+
+        [data-entity-type].filled {
+            width: 30px;
+            height: 25px;
+            border-radius: 2px;
+            border: 1px solid #cccccc85;
+        }
+
+            [data-entity-type].filled::before {
+                content: "";
+                display: inline-block;
+                padding-left: 1px;
+                line-height: 7pt;
+                font-size: 5pt;
+                font-weight: 900;
+                font-family: "Font Awesome 5 Free";
+                position: absolute;
+                top: 1px;
+                right: 1px;
+            }
+
+            [data-entity-type].filled.active::before {
+                content: "\f560";
+                color: #000000c4;
+                background-color: #ffffff;
+                border: 1px solid #000000c4;
+                width: 12px;
+                height: 12px;
+                border-radius: 100%;
+            }
+
+    #price-range[range]::before {
+        content: attr(range);
+        display: flex;
+        justify-content: center;
+        padding-top: 10px;
+        font-size: 17px;
+    }
+</style>
+}
+
+

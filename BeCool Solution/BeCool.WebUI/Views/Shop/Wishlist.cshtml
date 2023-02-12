@@ -1,0 +1,103 @@
+﻿@model IEnumerable<Product>
+
+<div class="wishlist-area pt-60 pb-60">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <form action="#">
+                    <div class="table-content table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th class="li-product-remove">remove</th>
+                                    <th class="li-product-thumbnail">images</th>
+                                    <th class="cart-product-name">Product</th>
+                                    <th class="li-product-price">Unit Price</th>
+                                    <th class="li-product-stock-status">Stock Status</th>
+                                    <th class="li-product-add-cart">add to cart</th>
+                                </tr>
+                            </thead>
+                            <tbody id="dynamic-content">
+                                <partial name="_WishlistBody" model="Model" />
+                            </tbody>
+                        </table>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*@section addcss{
+<style>
+    .img-wishlist {
+        height: 90px;
+        width: 90px;
+    }
+
+    .product-remove-x {
+        cursor: pointer;
+    }
+</style>
+}*@
+
+@section addjs{
+<script>
+    function removeFromFav(productId,e) {
+        e.preventDefault();
+        const favorites = ($.cookie('favorites') || '').split(',').filter(item => item.length > 0);
+        const refreshFavorites = favorites.filter(item => item != productId);
+
+        $.cookie('favorites',refreshFavorites.toString(),{ path: '/' });
+
+        $.ajax({
+            url: '',
+            type: 'POST',
+            success: function(response) {
+                $('#dynamic-content').html(response);
+            },
+            error: function(response) {
+
+            }
+        });
+    }
+    function addToBasket(e) {
+        e.preventDefault();
+
+        let elementData = $(e.currentTarget).data();
+
+        $.ajax({
+            url: `@Url.Action("Basket","Shop")`,
+            type: 'POST',
+            data: elementData,
+            contentType: 'application/x-www-form-urlencoded',
+            success: function(response){
+                console.log(response);
+
+                if (response.error == false) {
+                    $(e.target).closest('tr').remove();
+                    toastr.success(response.message,'Success');
+                    return;
+                }
+                toastr.error(response.message,'Error');
+            },
+            error: function(response, status, xhr) {
+                console.log(response, status, xhr);
+            }
+        });
+
+        //$.ajax({
+        //    url: '',
+        //    type: 'POST',
+        //    data: elementData,
+        //    contentType: 'application/x-www-form-urlencoded',
+        //    success: function(response) {
+        //        console.log(response);
+        //    },
+        //    error: function(response) {
+        //        console.log(response);
+        //    },
+        //});
+    }
+</script>
+}

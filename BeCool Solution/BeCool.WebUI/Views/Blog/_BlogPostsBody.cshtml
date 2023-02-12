@@ -1,0 +1,58 @@
+﻿@model PagedViewModel<BlogPost>
+
+
+<div class="row">
+    <!-- Begin Li's Main Content Area -->
+    <div class="col-lg-12">
+        <div class="row li-main-content">
+            @foreach (var item in Model.Items)
+            {
+                <div class="col-lg-4 col-md-6">
+                    <div class="li-blog-single-item pb-25">
+                        <div class="li-blog-banner">
+                            <a asp-action="Details" asp-route-slug="@item.Slug">
+                                <img class="img-full" src="~/uploads/images/@item.ImagePath" alt="">
+                            </a>
+                        </div>
+                        <div class="li-blog-content">
+                            <div class="li-blog-details">
+                                <h3 class="li-blog-heading pt-25">
+                                    <a asp-action="Details" asp-route-slug="@item.Slug">@item.Title</a>
+                                </h3>
+                                <div class="li-blog-meta">
+                                    <a class="author" href="#"><i class="fa fa-user"></i>Admin</a>
+                                    <a class="comment" href="#"><i class="fa fa-comment-o"></i> 3 comment</a>
+                                    <a class="post-time" href="#"><i class="fa fa-calendar"></i>@item.PublishedDate?.ToString("dd MMM yyyy")</a>
+                                </div>
+                                <p class="blog-short-content">@item.Body.ToPlainText()</p>
+                                <a class="read-more" href="blog-details-left-sidebar.html">Read More...</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            <!-- Begin Li's Pagination Area -->
+            <div class="col-lg-12">
+                <div class="li-paginatoin-area text-center pt-25">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            @Model.GetPager(Url,"Index",paginateFunction:"goPage")
+                            @*<ul class="li-pagination-box">
+                                <li><a class="Previous" href="#">Previous</a></li>
+                                @for (var i = 1; i <= Model.MaxPageSize; i++)
+                                {
+                                <li class="@(i == Model.PageIndex?"active":"")">
+                                <a asp-action="index" asp-route-PageIndex="@i" asp-route-PageSize="@Model.PageSize">@i</a>
+                                </li>
+                                }
+                                <li><a class="Next" href="#">Next</a></li>
+                                </ul>*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Li's Pagination End Here Area -->
+        </div>
+    </div>
+    <!-- Li's Main Content Area End Here -->
+</div>

@@ -1,0 +1,19 @@
+﻿
+@{
+    ViewData["Title"] = "SubscribeApprove";
+    var m = ViewBag.Message as Tuple<bool, string>;
+}
+
+@if (m.Item1)
+{
+    <div class="alert alert-danger">
+        @m.Item2
+    </div>
+}
+else
+{
+    <div class="alert alert-success">
+        @m.Item2
+    </div>
+}
+

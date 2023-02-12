@@ -1,0 +1,172 @@
+﻿@model ContactPost
+@{
+    ViewData["Title"] = "Contact";
+}
+ 
+
+<!-- Begin Li's Breadcrumb Area -->
+<div class="breadcrumb-area">
+    <div class="container">
+        <div class="breadcrumb-content">
+            <ul>
+                <li><a asp-controller="home" asp-action="Contact">Home</a></li>
+                <li class="active">Contact</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- Li's Breadcrumb Area End Here -->
+<!-- Begin Contact Main Page Area -->
+<div class="contact-main-page mt-60 mb-40 mb-md-40 mb-sm-40 mb-xs-40">
+    <div class="container mb-60">
+        <div id="google-map"></div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-5 offset-lg-1 col-md-12 order-1 order-lg-2">
+                <div class="contact-page-side-content">
+                    <h3 class="contact-page-title">Contact Us</h3>
+                    <p class="contact-page-message mb-25">Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram anteposuerit litterarum formas human.</p>
+                    <div class="single-contact-block">
+                        <h4><i class="fa fa-fax"></i> Address</h4>
+                        <p>123 Main Street, Anytown, CA 12345 – USA</p>
+                    </div>
+                    <div class="single-contact-block">
+                        <h4><i class="fa fa-phone"></i> Phone</h4>
+                        <p>Mobile: (08) 123 456 789</p>
+                        <p>Hotline: 1009 678 456</p>
+                    </div>
+                    <div class="single-contact-block last-child">
+                        <h4><i class="fa fa-envelope-o"></i> Email</h4>
+                        <p>yourmail@domain.com</p>
+                        <p>support@hastech.company</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-12 order-2 order-lg-1">
+                <div class="contact-form-content pt-sm-55 pt-xs-55">
+                    <h3 class="contact-page-title">Tell Us Your Message</h3>
+                    <div class="contact-form">
+                        <form id="contact-form" method="post" novalidate>
+                            @if (ViewBag.Message != null)
+                            {
+                                <div class="alert alert-success">
+                                    @ViewBag.Message
+                                </div>
+                            }
+                            <div class="form-group">
+                                @*<input type="text" name="name" id="customername" required>*@
+                                @*<span class="field-required">*</span>*@
+                                <span asp-validation-for="Name" class="required">*</span>
+                                <input asp-for="Name" placeholder="Name" class="field-input" />
+                            </div>
+                            <div class="form-group">
+                                @*<input type="email" name="email" id="customerEmail" required>*@
+                                @*<span class="field-required">*</span>*@
+                                <span asp-validation-for="Email" class="required">*</span>
+                                <input asp-for="Email" type="email" class="field-input" placeholder="Email" />
+                            </div>
+                            <div class="form-group">
+                                @*<input type="text" name="subject" id="contactSubject">*@
+                                @*<span class="field-required">*</span>*@
+                                <span asp-validation-for="Subject" class="required">*</span>
+                                <input asp-for="Subject" class="field-input" placeholder="Subject" />
+                            </div>
+                            <div class="form-group mb-30">
+                                @*<textarea name="message" id="contactMessage" ></textarea>*@
+                                @*<span class="field-required">*</span>*@
+                                <span asp-validation-for="Message" class="required">*</span>
+                                <textarea asp-for="Message" class="field-input" placeholder="Message"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" value="submit" id="submit" class="li-btn-3" name="submit">send</button>
+                                @*<input type="submit" value="Submit" class="li-btn-3">*@
+                            </div>
+                        </form>
+
+                    </div>
+                    <p class="form-messege"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Contact Main Page Area End Here -->
+@section addcss{
+@*<link rel="stylesheet" href="~/libs/toastr.js/toastr.min.css" />*@
+<style>
+    input[name].novalidated,
+    textarea[name].novalidated {
+        border: 1px solid red
+    }
+</style>
+}
+@section addjs{
+@*<script src="~/libs/toastr.js/toastr.min.js"></script>
+<script src="~/libs/toastr.js/toastr.customize.js"></script>*@
+    @*<script src="~/assets/js/ajax-mail.js"></script>*@
+<script>
+            $(document).ready(function () {
+        $('#contact-form').submit(function (ev) {
+            ev.preventDefault();
+
+            let fd = new FormData(ev.currentTarget);
+
+            $.ajax({
+                url: '@Url.Action("Contact")',
+                type: 'POST',
+                data: fd,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    //$('#contact-form span.field-required').css("visibility","hidden");
+                    $('#contact-form span.required').remove();
+                    $('#contact-form input[name],#contact-form textarea[name]').removeClass('novalidated');
+
+                    if (response.error == true)
+                    {
+                        toastr.error(response.message,'Xeta');
+
+                        showErrors(response.state);
+                        return;
+                    }
+                    toastr.success(response.message,'Ugurlu')
+
+                    ev.currentTarget.reset();
+                },
+                error: function (errorResponse) {
+                    console.log(errorResponse,'ERROR')
+                }
+            });
+
+        });
+    });
+    function showErrors(state) {
+
+
+        state.forEach(item => {
+            //$("#contact-form span.field-required").css("visibility", "hidden");
+            let errorInput = $(`#contact-form input[name=${item.fieldName}],#contact-form textarea[name=${item.fieldName}]`);
+            let errorSpan = $('<span/>',{
+
+                class: 'required',
+                html: item.message
+            });
+
+            //$(errorInput.parent()).append();
+            $(errorInput.parent()).append(errorSpan);
+            $(errorInput).addClass('novalidated');
+            //$(requiredSpan).css("visibility", "visible");
+
+
+            //console.log(errorInput,errorSpan);
+            //console.log(item.fieldName,item.message);
+        })
+    }
+</script>
+}
+
+
+      
+   

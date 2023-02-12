@@ -1,0 +1,71 @@
+﻿@model IEnumerable<Faq>
+
+@{
+    ViewData["Title"] = "Faq";
+}
+
+<!-- Begin Li's Breadcrumb Area -->
+<div class="breadcrumb-area">
+    <div class="container">
+        <div class="breadcrumb-content">
+            <ul>
+                <li><a asp-controller="home" asp-action="index">Home</a></li>
+                <li class="active">Faq</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- Li's Breadcrumb Area End Here -->
+<!-- Begin Frequently Area -->
+<div class="frequently-area pt-60 pb-50">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="frequently-content">
+                    <div class="frequently-desc">
+                        <h3>Below are frequently asked questions, you may find the answer for yourself</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec id erat sagittis, faucibus metus malesuada, eleifend turpis. Mauris semper augue id nisl aliquet, a porta lectus mattis. Nulla at tortor augue. In eget enim diam. Donec gravida tortor sem, ac fermentum nibh rutrum sit amet. Nulla convallis mauris vitae congue consequat. Donec interdum nunc purus, vitae vulputate arcu fringilla quis. Vivamus iaculis euismod dui.</p>
+                    </div>
+                </div>
+                <!-- Begin Frequently Accordin -->
+                <div class="frequently-accordion">
+                    <div id="accordion">
+                        @foreach (var item in Model)
+                        {
+                            <div class="card actives">
+                                <div class="card-header" id="headingOne">
+                                    <h5 class="mb-0">
+                                        <a class="" data-toggle="collapse" data-target="#collapseOne-@item.Id" aria-expanded="true" aria-controls="collapseOne">
+                                            @item.Question
+                                        </a>
+                                    </h5>
+                                </div>
+                                <div id="collapseOne-@item.Id" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                                    <div class="card-body">
+                                        @Html.Raw(item.Answer)
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        @*<div class="card">
+                            <div class="card-header" id="headingTw">
+                            <h5 class="mb-0">
+                            <a class="collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            Donec mattis finibus elit ut tristique?
+                            </a>
+                            </h5>
+                            </div>
+                            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                            <div class="card-body">
+                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                            </div>
+                            </div>
+                            </div>*@
+                    </div>
+                </div>
+                <!--Frequently Accordin End Here -->
+            </div>
+        </div>
+    </div>
+</div>
+<!--Frequently Area End Here -->
