@@ -8,7 +8,7 @@ using System.Linq;
 using System.Reflection;
 using BeCool.WebUI;
 
-namespace MotorOil.WebUI
+namespace BeCool.WebUI
 {
     public class Program
     {

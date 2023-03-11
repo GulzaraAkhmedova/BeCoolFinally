@@ -1,10 +1,10 @@
-﻿using Microsoft.AspNetCore.Authentication;
+﻿using BeCool.Domain.AppCode.Providers;
+using BeCool.Domain.Models.DataContexts;
+using BeCool.Domain.Models.Entities.Membership;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
-using BeCool.Domain.AppCode.Providers;
-using BeCool.Domain.Models.DataContexts;
-using BeCool.Domain.Models.Entities.Membership;
 using System;
 using System.Linq;
 using System.Security.Claims;

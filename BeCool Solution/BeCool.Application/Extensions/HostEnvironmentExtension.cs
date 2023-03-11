@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.IO;
@@ -32,6 +33,11 @@ namespace BeCool.Application.Extensions
             }
 
             return request.Headers["X-Requested-With"] == "XMLHttpRequest";
+        }
+
+        public static bool IsValidState(this IActionContextAccessor ctx)
+        {
+            return ctx.ActionContext.ModelState.IsValid;
         }
     }
 }

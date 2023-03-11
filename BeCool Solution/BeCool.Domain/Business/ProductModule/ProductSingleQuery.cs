@@ -27,6 +27,15 @@ namespace BeCool.Domain.Business.ProductModule
             {
                 var data = await db.Products
                     .Include(p => p.Images.Where(i => i.DeletedUserId == null))
+                    .Include(p => p.Brand)
+                    .Include(p => p.Category)
+                    .Include(p => p.ProductCatalog)
+                    .Include(p => p.ProductCatalog)
+                    .ThenInclude(p => p.ProductType)
+                    .Include(p => p.ProductCatalog)
+                    .ThenInclude(p => p.ProductMaterial)
+                    .Include(p => p.ProductCatalog)
+                    .ThenInclude(p => p.ProductSize)
                     .FirstOrDefaultAsync(m => m.Id == request.Id && m.DeletedDate == null, cancellationToken);
 
                 return data;

@@ -2,6 +2,7 @@ using BeCool.Application.Providers;
 using BeCool.Application.Services;
 using BeCool.Domain.AppCode.Extensions;
 using BeCool.Domain.Models.DataContexts;
+using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;

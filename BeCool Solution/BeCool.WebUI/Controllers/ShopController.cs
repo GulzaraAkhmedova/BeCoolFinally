@@ -1,6 +1,5 @@
 ﻿using BeCool.Application.Extensions;
 using BeCool.Domain.Business.ProductModule;
-using BeCool.Domain.Business.ShopModule;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

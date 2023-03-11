@@ -25,10 +25,10 @@ namespace BeCool.Domain.Business.ProductModule
 
             public async Task<PagedViewModel<Product>> Handle(ProductsPagedQuery request, CancellationToken cancellationToken)
             {
-                //if (request.PageSize < 5)
-                //{
-                //    request.PageSize = 5;
-                //}
+                if (request.PageSize < 12)
+                {
+                    request.PageSize = 12;
+                }
                 var query =  db.Products
                     .Include(p => p.Images)
                     .Include(p => p.Brand)

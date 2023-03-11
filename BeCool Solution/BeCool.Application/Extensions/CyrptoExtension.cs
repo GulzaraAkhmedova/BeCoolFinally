@@ -11,41 +11,7 @@ namespace BeCool.Application.Extensions
     {
         
         const string saltKey = "p513!codeAcademy";
-        public static string ToMd5(this string value)
-        {
-            byte[] buffer = Encoding.UTF8.GetBytes($"{saltKey}{value}BigOn.Domain.AppCode.Extensions");
-
-
-
-
-            //var provider = MD5.Create();
-
-            // yuxarisi ve awagisi eynidi yuxaridaki
-            // yuxaridaki static class-la instance almaqdi
-            // yuxaridaki single instance mentiqine esaslanir ozunu new ede bilmirik nusxesin yarada bilmirik
-            // asagidaki ise ozumuz instance aliriq
-
-
-            var provider = new MD5CryptoServiceProvider();
-
-
-
-            //byte[] mixedBuffer = provider.ComputeHash(buffer);
-
-
-            //StringBuilder sb = new StringBuilder();
-
-            //foreach (byte part in mixedBuffer)
-            //{
-            //    sb.Append(part.ToString("x2"));
-            //}
-
-            //string result = sb.ToString();
-            // asagidaki return-u bu hissedeki comment qaydasi ilede yazmaq olar
-            // return-deki daha qisa koddu
-
-            return string.Join("", provider.ComputeHash(buffer).Select(b => b.ToString("x2")));
-        }
+       
 
 
 

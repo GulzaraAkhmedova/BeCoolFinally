@@ -12,5 +12,6 @@ namespace BeCool.Application.Infrastructure
         public DateTime CreatedDate { get; set; } = DateTime.UtcNow.AddHours(4);
         public DateTime? DeletedDate { get; set; }
         public int? DeletedUserId { get; set; }
+        
     }
 }

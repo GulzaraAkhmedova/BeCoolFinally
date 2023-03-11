@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Views\Blog\_Comment.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="MediatR" Version="11.1.0" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.17" />
@@ -31,14 +35,17 @@
     <None Include="Views\Account\Signin.cshtml" />
     <None Include="Views\Blog\Details.cshtml" />
     <None Include="Views\Blog\Index.cshtml" />
+    <None Include="Views\Blog\_Comment.cshtml" />
     <None Include="Views\Blog\_BlogPostsBody.cshtml" />
     <None Include="Views\Shop\Index.cshtml" />
     <None Include="Views\Shop\Wishlist.cshtml" />
     <None Include="Views\Shop\_Products.cshtml" />
     <None Include="Views\Shop\_WishlistBody.cshtml" />
+    <None Include="wwwroot\images\.DS_Store" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BeCool.Application\BeCool.Application.csproj" />
     <ProjectReference Include="..\BeCool.Domain\BeCool.Domain.csproj" />
   </ItemGroup>
 

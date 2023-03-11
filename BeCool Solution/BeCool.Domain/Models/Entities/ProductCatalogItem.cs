@@ -4,6 +4,9 @@ namespace BeCool.Domain.Models.Entities
 {
     public class ProductCatalogItem : BaseEntity
     {
+        public object CreatedByUser;
+        public object DeletedUser;
+
         public int ProductId { get; set; }
         public virtual Product Product { get; set; }
         public int ProductColorId { get; set; }
@@ -14,5 +17,6 @@ namespace BeCool.Domain.Models.Entities
         public virtual ProductMaterial ProductMaterial { get; set; }
         public int ProductTypeId { get; set; }
         public virtual ProductType ProductType { get; set; }
+        
     }
 }

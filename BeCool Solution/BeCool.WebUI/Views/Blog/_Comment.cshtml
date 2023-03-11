@@ -1,0 +1,17 @@
+﻿@using BeCool.Domain.Models.Entities
+@model BlogPostComment
+
+
+<li class="parent-comment @(@Model.ParentId != null ? "comment-children" : "")" id="c-@Model.Id" data-comment-id="@Model.Id">
+    <div class="author-avatar pt-15">
+        <img src="~/Admin/images/user.png" alt="Admin">
+    </div>
+    <div class="comment-body pl-15">
+        <span class="reply-btn pt-15 pt-xs-5"><a href="#" class="btn-comment-reply">reply</a></span>
+        <h5 class="comment-author pt-15">@($"{Model.CreatedByUser?.Name} {Model.CreatedByUser?.Surname}")</h5>
+        <div class="comment-post-date">
+            @Model.CreatedDate.ToString("d MMM, yyyy HH:mm")
+        </div>
+        <p>@Model.Text</p>
+    </div>
+</li>

@@ -1,4 +1,4 @@
-﻿@model HomeVM
+﻿
 @{
     ViewData["Title"] = "Home";
 }
@@ -14,7 +14,7 @@
                </div>
                <div class="col-md-4">
                   <div class="ban_img">
-                     <figure><img src="~/assets/images/ban_img.png" alt="#"/></figure>
+                     <figure><img src="~/images/ban_img.png" alt="#"/></figure>
                   </div>
                </div>
             </div>
@@ -27,37 +27,37 @@
             <div class="row">
                <div class="col-md-2 col-sm-4 pa_left">
                   <div class="six_probpx yellow_bg">
-                     <i><img src="~/assets/images/shoes.png" alt="#"/></i>
+                     <i><img src="~/images/shoes.png" alt="#"/></i>
                      <span>Shoes</span>
                   </div>
                </div>
                <div class="col-md-2 col-sm-4 pa_left">
                   <div class="six_probpx bluedark_bg">
-                     <i><img src="~/assets/images/underwear.png" alt="#"/></i>
+                     <i><img src="~/images/underwear.png" alt="#"/></i>
                      <span>underwear</span>
                   </div>
                </div>
                <div class="col-md-2 col-sm-4 pa_left">
                   <div class="six_probpx yellow_bg">
-                     <i><img src="~/assets/images/pent.png" alt="#"/></i>
+                     <i><img src="~/images/pent.png" alt="#"/></i>
                      <span>Pante & socks</span>
                   </div>
                </div>
                <div class="col-md-2 col-sm-4 pa_left">
                   <div class="six_probpx bluedark_bg">
-                     <i><img src="~/assets/images/t_shart.png" alt="#"/></i>
+                     <i><img src="~/images/t_shart.png" alt="#"/></i>
                      <span>T-shirt & tankstop</span>
                   </div>
                </div>
                <div class="col-md-2 col-sm-4 pa_left">
                   <div class="six_probpx yellow_bg">
-                     <i><img src="~/assets/images/jakit.png" alt="#"/></i>
+                     <i><img src="~/images/jakit.png" alt="#"/></i>
                      <span>cardigans & jumpers</span>
                   </div>
                </div>
                <div class="col-md-2 col-sm-4 pa_left">
                   <div class="six_probpx bluedark_bg">
-                     <i><img src="~/assets/images/helbet.png" alt="#"/></i>
+                     <i><img src="~/images/helbet.png" alt="#"/></i>
                      <span>Top & hat</span>
                   </div>
                </div>
@@ -77,85 +77,82 @@
             </div>
             <div class="row">
             <div class="product_main">
-             
-                @foreach (var product in Model.Products)
+             @*   @foreach (var product in Model.Products)
                 {
                     <div class="project_box ">
-                     <div class="dark_white_bg" ><img  src="~/assets/images/@product.Images.FirstOrDefault()" alt="#"/></div>
+                     <div class="dark_white_bg" ><img  src="~/images/@product.Images.FirstOrDefault()" alt="#"/></div>
                      <h3>@product.Name $@product.Price</h3>
                   </div>
-                }
-
-             
+                }*@
                   <div class="project_box ">
-                     <div class="dark_white_bg" ><img  src="~/assets/images/shoes2.png" alt="#"/></div>
+                     <div class="dark_white_bg" ><img  src="~/images/shoes2.png" alt="#"/></div>
                      <h3 >Short Openwork Cardigan $120.00</h3>
                   </div>
                
                   <div class="project_box">
-                     <div class="dark_white_bg" ><img  src="~/assets/images/shoes3.png" alt="#"/></div>
+                     <div class="dark_white_bg" ><img  src="~/images/shoes3.png" alt="#"/></div>
                      <h3>Short Openwork Cardigan $120.00</h3>
                   </div>
               
                   <div class="project_box">
-                     <div class="dark_white_bg" ><img  src="~/assets/images/shoes4.png" alt="#"/></div>
+                     <div class="dark_white_bg" ><img  src="~/images/shoes4.png" alt="#"/></div>
                      <h3>Short Openwork Cardigan $120.00</h3>
                   </div>
               
                   <div class="project_box">
-                     <div class="dark_white_bg" ><img  src="~/assets/images/shoes5.png" alt="#"/></div>
+                     <div class="dark_white_bg" ><img  src="~/images/shoes5.png" alt="#"/></div>
                      <h3>Short Openwork Cardigan $120.00</h3>
                   </div>
               
             
                   <div class="project_box ">
-                     <div class="dark_white_bg" ><img  src="~/assets/images/tisat1.png" alt="#"/></div>
+                     <div class="dark_white_bg" ><img  src="~/images/tisat1.png" alt="#"/></div>
                      <h3>Short Openwork Cardigan $120.00</h3>
                   </div>
               
                   <div class="project_box ">
-                     <div class="dark_white_bg" ><img  src="~/assets/images/tisat2.png" alt="#"/></div>
+                     <div class="dark_white_bg" ><img  src="~/images/tisat2.png" alt="#"/></div>
                      <h3 >Short Openwork Cardigan $120.00</h3>
                   </div>
                
                   <div class="project_box">
-                     <div class="dark_white_bg" ><img  src="~/assets/images/tisat3.png" alt="#"/></div>
+                     <div class="dark_white_bg" ><img  src="~/images/tisat3.png" alt="#"/></div>
                      <h3>Short Openwork Cardigan $120.00</h3>
                   </div>
                
                   <div class="project_box">
-                     <div class="dark_white_bg" ><img  src="~/assets/images/tisat4.png" alt="#"/></div>
+                     <div class="dark_white_bg" ><img  src="~/images/tisat4.png" alt="#"/></div>
                      <h3>Short Openwork Cardigan $120.00</h3>
                   </div>
                
                   <div class="project_box">
-                     <div class="dark_white_bg" ><img  src="~/assets/images/tisat5.png" alt="#"/></div>
+                     <div class="dark_white_bg" ><img  src="~/images/tisat5.png" alt="#"/></div>
                      <h3>Short Openwork Cardigan $120.00</h3>
                   </div>
                
             
                   <div class="project_box ">
-                     <div class="dark_white_bg" ><img  src="~/assets/images/mix1.png" alt="#"/></div>
+                     <div class="dark_white_bg" ><img  src="~/images/mix1.png" alt="#"/></div>
                      <h3>Short Openwork Cardigan $120.00</h3>
                   </div>
                
                   <div class="project_box ">
-                     <div class="dark_white_bg" ><img  src="~/assets/images/mix2.png" alt="#"/></div>
+                     <div class="dark_white_bg" ><img  src="~/images/mix2.png" alt="#"/></div>
                      <h3 >Short Openwork Cardigan $120.00</h3>
                   </div>
                
                   <div class="project_box">
-                     <div class="dark_white_bg" ><img  src="~/assets/images/mix3.png" alt="#"/></div>
+                     <div class="dark_white_bg" ><img  src="~/images/mix3.png" alt="#"/></div>
                      <h3>Short Openwork Cardigan $120.00</h3>
                   </div>
               
                   <div class="project_box">
-                     <div class="dark_white_bg" ><img  src="~/assets/images/mix4.png" alt="#"/></div>
+                     <div class="dark_white_bg" ><img  src="~/images/mix4.png" alt="#"/></div>
                      <h3>Short Openwork Cardigan $120.00</h3>
                   </div>
                
                   <div class="project_box">
-                     <div class="dark_white_bg" ><img  src="~/assets/images/mix5.png" alt="#"/></div>
+                     <div class="dark_white_bg" ><img  src="~/images/mix5.png" alt="#"/></div>
                      <h3>Short Openwork Cardigan $120.00</h3>
                   </div>
               
@@ -169,7 +166,7 @@
       <!-- end project section -->
       <!-- fashion section -->
       <div class="fashion">
-         <img src="~/assets/images/fashion.jpg" alt="#"/>
+         <img src="~/images/fashion.jpg" alt="#"/>
       </div>
       <!-- end fashion section -->
       <!-- news section -->
@@ -183,13 +180,13 @@
                </div>
             </div>
             <div class="row">
-            @foreach (var item in Model.BlogPosts)
+           @* @foreach (var item in Model.BlogPosts)
             {
                 <div class="col-md-12 margin_top40">
                   <div class="row d_flex">
                      <div class="col-md-5">
                         <div class="news_img">
-                           <figure><img src="~/assets/images/@item.ImagePath"></figure>
+                           <figure><img src="~/images/@item.ImagePath"></figure>
                         </div>
                      </div>
                      <div class="col-md-7">
@@ -204,7 +201,7 @@
                      </div>
                   </div>
                </div>
-            }
+            }*@
         </div>
          </div>
       </div>
@@ -232,19 +229,19 @@
             <div class="row">
                <div class="col-md-4">
                   <div class="gift_box">
-                     <i><img src="~/assets/images/icon_mony.png"></i>
+                     <i><img src="~/images/icon_mony.png"></i>
                      <span>Money Back</span>
                   </div>
                </div>
                <div class="col-md-4">
                   <div class="gift_box">
-                     <i><img src="~/assets/images/icon_gift.png"></i>
+                     <i><img src="~/images/icon_gift.png"></i>
                      <span>Special Gift</span>
                   </div>
                </div>
                <div class="col-md-4">
                   <div class="gift_box">
-                     <i><img src="~/assets/images/icon_car.png"></i>
+                     <i><img src="~/images/icon_car.png"></i>
                      <span>Free Shipping</span>
                   </div>
                </div>

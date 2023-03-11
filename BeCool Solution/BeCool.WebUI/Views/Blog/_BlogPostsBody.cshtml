@@ -7,29 +7,27 @@
         <div class="row li-main-content">
             @foreach (var item in Model.Items)
             {
-                <div class="col-lg-4 col-md-6">
-                    <div class="li-blog-single-item pb-25">
-                        <div class="li-blog-banner">
-                            <a asp-action="Details" asp-route-slug="@item.Slug">
-                                <img class="img-full" src="~/uploads/images/@item.ImagePath" alt="">
-                            </a>
+                <a asp-action="Details" asp-route-slug="@item.Slug">
+                    <div class="col-md-12 margin_top40">
+                  <div class="row d_flex">
+                     <div class="col-md-5">
+                        <div class="news_img">
+                           <figure><img src="~/images/@item.ImagePath"></figure>
                         </div>
-                        <div class="li-blog-content">
-                            <div class="li-blog-details">
-                                <h3 class="li-blog-heading pt-25">
-                                    <a asp-action="Details" asp-route-slug="@item.Slug">@item.Title</a>
-                                </h3>
-                                <div class="li-blog-meta">
-                                    <a class="author" href="#"><i class="fa fa-user"></i>Admin</a>
-                                    <a class="comment" href="#"><i class="fa fa-comment-o"></i> 3 comment</a>
-                                    <a class="post-time" href="#"><i class="fa fa-calendar"></i>@item.PublishedDate?.ToString("dd MMM yyyy")</a>
-                                </div>
-                                <p class="blog-short-content">@item.Body.ToPlainText()</p>
-                                <a class="read-more" href="blog-details-left-sidebar.html">Read More...</a>
-                            </div>
+                     </div>
+                     <div class="col-md-7">
+                        <div class="news_text">
+                           <h3>Specimen book. It has survived not only five</h3>
+                           <span>@item.PublishedDate?.ToString("dd MMM yyyy")</span> 
+                           <div class="date_like">
+                              <span>Like </span><span class="pad_le">Comment</span>
+                           </div>
+                           <p>@item.Body.ToPlainText()</p>
                         </div>
-                    </div>
-                </div>
+                     </div>
+                  </div>
+               </div>
+                </a>
             }
             <!-- Begin Li's Pagination Area -->
             <div class="col-lg-12">

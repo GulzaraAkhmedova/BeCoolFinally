@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using BeCool.Domain.Models.DataContexts;
 using BeCool.Domain.Models.Entities;
 
-namespace MotorOil.WebUI.Areas.Admin.Controllers
+namespace BeCool.WebUI.Areas.Admin.Controllers
 {
     [Area("Admin")]
     public class SizesController : Controller

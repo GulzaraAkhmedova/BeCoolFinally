@@ -1,8 +1,8 @@
 ﻿using BeCool.Application.Extensions;
+using BeCool.Application.Infrastructure;
 using BeCool.Application.Services;
 using BeCool.Domain.Models.DataContexts;
 using BeCool.Domain.Models.Entities;
-using BeCool.Domain.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -26,21 +26,20 @@ namespace BeCool.WebUI.Controllers
             this.crypto = crypto;
             this.emailService = emailService;
         }
-        
-        public async Task<IActionResult> Index()
+
+        public IActionResult Index()
         {
-            HomeVM vM = new()
-            {
-                BlogPosts = await db.BlogPosts.Where(x => x.DeletedDate == null).ToListAsync(),
-                Products = await db.Products.Include(x => x.Images).Where(x => x.DeletedDate == null).ToListAsync()
-            };
-            return View(vM);
+            return View();
         }
         public IActionResult About()
         {
             return View();
         }
         public IActionResult Contact()
+        {
+            return View();
+        }
+        public IActionResult Product()
         {
             return View();
         }
@@ -106,7 +105,7 @@ namespace BeCool.WebUI.Controllers
                 db.Subscribes.Add(model);
                 db.SaveChanges();
             }
-            else if(entity != null)
+            else if (entity != null)
             {
                 model.Id = entity.Id;
             }
@@ -114,18 +113,18 @@ namespace BeCool.WebUI.Controllers
 
             string token = $"{model.Id}-{model.Email}-{Guid.NewGuid()}";
 
-            token = crypto.Encrypt(token,true);
+            token = crypto.Encrypt(token, true);
 
             //token = HttpUtility.UrlEncode(token);
 
-            
+
 
             string message = $"Abuneliyinizi <a href='https://{Request.Host}/approve-subscribe?token={token}'>link</a> vasitesile tesdiq edin";
 
 
             //configuration.SendMail(model.Email, message, "Subscribe Approve Ticket");
 
-            await emailService.SendEmailAsync(model.Email,"Subscribe Approve ticket",message);
+            await emailService.SendEmailAsync(model.Email, "Subscribe Approve ticket", message);
 
             return Json(new
             {
@@ -183,7 +182,7 @@ namespace BeCool.WebUI.Controllers
                 ViewBag.Message = Tuple.Create(true, "Token xətası");
                 goto end;
             }
-            end:
+        end:
             return View();
 
 

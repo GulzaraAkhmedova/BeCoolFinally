@@ -10,7 +10,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MotorOil.WebUI.Areas.Admin.Controllers
+namespace BeCool.WebUI.Areas.Admin.Controllers
 {
     [Area("Admin")]
     public class BlogPostsController : Controller

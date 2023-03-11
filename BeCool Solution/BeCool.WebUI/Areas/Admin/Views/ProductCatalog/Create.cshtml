@@ -1,0 +1,115 @@
+﻿@model BeCool.Domain.Models.Entities.ProductCatalogItem
+
+@{
+    ViewData["Title"] = "Əlavə et";
+}
+
+<!-- Page-header start -->
+<div class="page-header">
+    <div class="row align-items-end">
+        <div class="col-lg-8">
+            <div class="page-header-title">
+                <div class="d-inline">
+                    <h1>Əlavə et</h1>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="page-header-breadcrumb">
+                <ul class="breadcrumb-title">
+                    <li class="breadcrumb-item" style="float: left;">
+                        <a asp-controller="Dashboard" asp-action="index">
+                            <i class="feather icon-home"></i>
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item" style="float: left;">
+                        <a asp-action="index">Kataloq</a>
+                    </li>
+                    <li class="breadcrumb-item" style="float: left;">
+                        <span>Əlavə et</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Page-header end -->
+<!-- Page-body start -->
+<div class="page-body">
+    <!-- Horizontal-border table start -->
+    <div class="card">
+        <div class="card-header">
+            <div class="card-header-right">
+                <i class="icofont icofont-spinner-alt-5"></i>
+            </div>
+
+        </div>
+        <div class="card-block">
+            <form method="post" autocomplete="off" enctype="multipart/form-data">
+                <div class="form-group row">
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label asp-for="ProductId" class="form-label">Məhsul</label>
+                            <select class="clndr-controls select2" asp-for="ProductId" asp-items="@ViewBag.ProductId"></select>
+                            <span asp-validation-for="ProductId" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="ProductMaterialId" class="form-label">Uyğunluq</label>
+                            <select class="clndr-controls select2" asp-for="ProductMaterialId" asp-items="@ViewBag.ProductViscosityId"></select>
+                            <span asp-validation-for="ProductMaterialId" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="ProductSizeId" class="form-label">Api Standartı</label>
+                            <select class="clndr-controls select2" asp-for="ProductSizeId" asp-items="@ViewBag.ProductApiId"></select>
+                            <span asp-validation-for="ProductSizeId" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="ProductTypeId" class="form-label">Növü</label>
+                            <select class="clndr-controls select2" asp-for="ProductTypeId" asp-items="@ViewBag.ProductTypeId"></select>
+                            <span asp-validation-for="ProductTypeId" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-12 d-flex justify-content-end">
+                        <button class="btn btn-primary mr-2">Saxla</button>
+                        <a asp-action="index" class="btn btn-info">İmtina</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- Horizontal-border table end -->
+</div>
+<!-- Page-body end -->
+@section addjs{
+<script class="removeable" src="~/libs/ckeditor5/ckeditor.min.js"></script>
+<script class="removeable" src="~/libs/select2/dist/js/select2.full.min.js"></script>
+<script class="removeable" src="~/libs/multiple-imager-js/js/imager.js"></script>
+<script>
+    ClassicEditor
+    .create( document.querySelector( '#sdesc' ) )
+    .catch( error => {
+        console.error( error );
+    } );
+    ClassicEditor
+    .create( document.querySelector( '#desc' ) )
+    .catch( error => {
+        console.error( error );
+    } );
+    $('.select2').select2();
+
+    $('#viewer1').imgadd({
+        tnWidth: '60px',
+        tnHeight: '60px',
+        fontSize: '55px',
+        plusInnerHtml: '',
+        plusBtnClass: undefined
+    });
+</script>
+}
+@section addcss{
+<link rel="stylesheet" href="~/libs/multiple-imager-js/css/imager.css" />
+<link rel="stylesheet" href="~/libs/select2/dist/css/select2.min.css" />
+}
+

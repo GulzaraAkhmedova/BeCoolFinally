@@ -1,0 +1,103 @@
+﻿<script src="~/libs/sweetalert/sweetalert.min.js"></script>
+<script>
+    function removeFromBasket(element,name) {
+         swal({
+                  title: "Diqqet",
+                  text: `Eminsiniz ki.. '${name}' silinsin ?`,
+                  icon: "warning",
+                  buttons: true,
+                  dangerMode: true,
+                  buttons: ["Xeyr", "Beli"],
+         })
+                 .then((value) => {
+                     if (value == true) {
+                         let elementData = $(element).data();
+
+                         $.ajax({
+                             url: `@Url.Action("RemoveFromBasket","Shop")`,
+                             type: 'POST',
+                             data: elementData,
+                             contentType: 'application/x-www-form-urlencoded',
+                             success: function(response){
+                                 console.log(response);
+
+                                 if (response.error == false) {
+
+                                     const removeTarget = $(element).attr('aria-remove-target');
+
+                                     if(removeTarget != undefined) {
+                                         $(removeTarget).remove();
+                                     }
+
+                                     if (response.value?.count == null) {
+                                         $('.cart-item-count-basket').text('');
+                                     }
+                                     else{
+                                         $('.cart-item-count-basket').text(response.value.count); //₼
+                                     }
+
+                                     
+
+                                     toastr.success(response.message,'Success');
+                                     return;
+                                 }
+                                 toastr.error(response.message,'Error');
+                             },
+                             error: function(response, status, xhr) {
+                                 console.log(response, status, xhr);
+                             }
+                         });
+                     }
+                 });
+
+    }
+
+    function changeQuantity(element) {
+
+        if ($.processId != undefined) {
+            clearTimeout($.processId);
+            $.processId = undefined;
+        }
+
+        if (element.value < 1) {
+            console.log('olmaz',element.value);
+
+            return;
+        }
+
+        $.processId = setTimeout(function() {
+
+        const elementData = $(element).data();
+        elementData.quantity = element.value;
+
+
+            $.ajax({
+                     url: `@Url.Action("ChangeBasketQuantity","Shop")`,
+                     type: 'POST',
+                     data: elementData,
+                     contentType: 'application/x-www-form-urlencoded',
+                     success: function(response){
+                         console.log(response);
+
+                         if (response.error == false) {
+                             $(element).closest('tr').find('.amount').text(`${response.value.price}₼`);
+                             $(element).closest('tr').find('.product-subtotal').text(`${response.value.total}₼`);
+                             $('#summary').text(`${response.value.summary}₼`);
+                             toastr.success(response.message,'Success');
+                             return;
+                         }
+                         toastr.error(response.message,'Error');
+                     },
+                     error: function(response, status, xhr) {
+                         console.log(response, status, xhr);
+                     }
+                 });
+
+        },1500);
+    }
+</script>
+
+
+
+
+
